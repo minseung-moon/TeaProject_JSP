@@ -9,34 +9,6 @@
 <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-<%
-	Cookie[] cookies = request.getCookies();
-	for(Cookie cookie : cookies) {
-		if(cookie.getName().equals("loginResult")){
-			if(cookie.getValue().equals("1")){
-				%>
-					<script type="text/javascript">
-						alert("로그인 성공 하셨습니다.");
-					</script>
-				<%
-			}else if(cookie.getValue().equals("2")){
-				%>
-				<script type="text/javascript">
-					alert("없는 계정 입니다!");
-				</script>
-			<%
-			}else {
-				%>
-				<script type="text/javascript">
-					alert("비활성화 계정 입니다!");
-				</script>
-			<%
-			}
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-		}
-	}
-%>
 	<jsp:include page="./header.jsp" />
 
 	<div id="main">

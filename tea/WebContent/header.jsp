@@ -28,7 +28,7 @@
 					<%
 						if(user != null){
 					%>
-					<li><a href="#">My Page</a></li>
+					<li><a href="myPage.jsp">My Page</a></li>
 					<li><a href="logOutProc.jsp">Log Out</a></li>
 					<%
 							if(user.getUserGrade().equals("r")){

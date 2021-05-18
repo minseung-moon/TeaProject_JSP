@@ -80,11 +80,52 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			rs.next();
 			userDTO = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-			userDTO.setUserGrade(rs.getString(6));
+			String userGrade = "";
+			switch (rs.getString(6)) {
+			case "s": userGrade = "VIP"; break;
+			case "a": userGrade = "최우수회원"; break;
+			case "b": userGrade = "우수회원"; break;
+			case "c": userGrade = "일반"; break;
+			}
+			userDTO.setUserGrade(userGrade);
 			userDTO.setUserState(rs.getString(7));
 		} catch (SQLException e) {
 			System.out.println("정보획득 실패");
 		}
 		return userDTO;
+	}
+	
+	public boolean deleteUser(String userId) {
+		boolean check = false;
+		
+		try {
+			sql = "delete from teaUser where userId = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			check = pstmt.executeUpdate()==1?true : false;
+		}catch(SQLException e){
+			System.out.println("delete error");
+		}
+		
+		return check;
+	}
+	
+	public boolean updateUser(UserDTO dto) {
+		boolean check = false;
+		
+		try {
+			sql = "update teaUser set userName=?, userPw=?, userPhone=?, userAddr=? where userId=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getUserName());
+			pstmt.setString(2, dto.getUserPw());
+			pstmt.setString(3, dto.getUserPhone());
+			pstmt.setString(4, dto.getUserAddr());
+			pstmt.setString(5, dto.getUserId());
+			check = pstmt.executeUpdate()==1?true:false;
+		}catch(SQLException e) {
+			System.out.println("update false");
+		}
+		
+		return check;
 	}
 }

@@ -1,10 +1,10 @@
+<%@page import="tea.teaUser.UserDAO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 
 <%@page import="java.sql.Statement"%>
 
 <%@page import="tea.DBConn"%>
-<%@page import="tea.teaUser.userDAO" %>
 
 <%@page import="java.sql.Connection"%>
 
@@ -21,7 +21,7 @@
     
 
     // 아이디 받아오기
-	userDAO userDAO = new userDAO();
+    UserDAO userDAO = new UserDAO();
     String userid = request.getParameter("userid");
 
     
