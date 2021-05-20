@@ -1,5 +1,6 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.sql.*"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,6 +33,18 @@
 		pstmt.setString(1, idx);
 		rs = pstmt.executeQuery();
 		rs.next();
+		request.setAttribute("idx", rs.getString("idx"));
+		request.setAttribute("writer", rs.getString("writer"));
+		request.setAttribute("regdate", rs.getString("regdate"));
+		request.setAttribute("count", rs.getString("count"));
+		request.setAttribute("title", rs.getString("title"));
+		request.setAttribute("content", rs.getString("content"));
+		con.close();
+	} catch (Exception e) {
+		out.println("Oracle 데이터베이스 db 접속 실패<hr>");
+		out.println(e.getMessage());
+		e.printStackTrace();
+	}
 %>
 </head>
 <body>
@@ -39,32 +52,25 @@
 	<table>
 		<tr>
 			<th>번호</th>
-			<td><%=rs.getString("idx") %></td>
+			<td>${idx }</td>
 			<th>작성자</th>
-			<td><%=rs.getString("writer") %></td>
+			<td>${writer }</td>
 			<th>날짜</th>
-			<td><%=rs.getString("regdate") %></td>
+			<td>${regdate }</td>
 			<th>조회수</th>
-			<td><%=rs.getString("count") %></td>
+			<td>${count }</td>
 		</tr>
 		<tr>
 			<th colspan="2">제목</th>
-			<td colspan="6"><%=rs.getString("title") %></td>
+			<td colspan="6">${title }</td>
 		</tr>
 		<tr>
 			<th colspan="2">내용</th>
-			<td colspan="6"><%=rs.getString("content") %></td>
+			<td colspan="6">${content }</td>
 		</tr>
 	</table>
-	<a href="delete.jsp?idx=<%=rs.getString("idx")%>">게시글 삭제</a>
-	<a href="list.jsp">목록으로</a>
-	<%		
-				con.close();
-			} catch (Exception e) {
-				out.println("Oracle 데이터베이스 db 접속 실패<hr>");
-				out.println(e.getMessage());
-				e.printStackTrace();
-			}
-	%>
+	<a href="delete.jsp?idx=${idx }">게시글 삭제</a>
+	<a href="modify_write.jsp?idx=${idx }">게시글 수정</a>
+	<a href="list.do">목록으로</a>
 </body>
 </html>

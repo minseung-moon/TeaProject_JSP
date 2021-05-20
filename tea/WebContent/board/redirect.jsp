@@ -9,7 +9,7 @@
 <body>
 
 <script>
-	location.href="list.jsp";
+	location.href="list.do";
 </script>
 
 </body>

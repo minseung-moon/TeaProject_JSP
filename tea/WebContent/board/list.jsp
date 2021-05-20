@@ -1,5 +1,9 @@
+<%@page import="oracle.net.aso.a"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="java.sql.*"%>
+<%@page import="com.board.beans.board" %>
+<%@page import="java.util.ArrayList" %>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,23 +20,6 @@
 		color : white;
 	}
 </style>
-<%
-	Connection con = null;
-	String sql = "";
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	try {
-		String driverName = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		Class.forName(driverName);
-		con = DriverManager.getConnection(url, "board", "1234");
-		out.println("Oracle 데이터베이스 db에 성공적으로 접속했습니다");
-
-		sql = "select * from board order by idx desc";
-		pstmt = con.prepareStatement(sql);
-
-		rs = pstmt.executeQuery();
-%>
 </head>
 <body>
 	<h1>게시글</h1>
@@ -44,25 +31,15 @@
 			<th>날짜</th>
 			<th>조회수</th>
 		</tr>
-		<%
-			while (rs.next()) {
-		%>
-		<tr>
-			<td><%=rs.getString(1)%></td>
-			<td><a href="content.jsp?idx=<%=rs.getString(1)%>"><%=rs.getString(2)%></a></td>
-			<td><%=rs.getString(3)%></td>
-			<td><%=rs.getString(4)%></td>
-			<td><%=rs.getString(5)%></td>
-		</tr>
-		<%
-			}
-				con.close();
-			} catch (Exception e) {
-				out.println("Oracle 데이터베이스 db 접속 실패<hr>");
-				out.println(e.getMessage());
-				e.printStackTrace();
-			}
-		%>
+		<c:forEach items="${articleList }" var="article">
+			<tr>
+				<td>${article.idx }</td>
+				<td><a href="content.jsp?idx=${article.idx }">${article.title }</a></td>
+				<td>${article.writer }</td>
+				<td>${article.regdate }</td>
+				<td>${article.count }</td>
+			</tr>
+		</c:forEach>
 	</table>
 	<a href="write.jsp">글쓰기</a>
 </body>
