@@ -19,12 +19,20 @@ create table teaUser(
 --0 : ºñÈ°¼ºÈ­
 
 create table teaCommunity(
-	userId varchar2(10) not null primary key,
+	idx number not null primary key,
+	userId varchar2(10) not null,
 	title varchar2(100) not null,
-	content CLOB
-	make_date timestamp default systimestamp,
+	content CLOB,
+	regdate timestamp default systimestamp,
+	count varchar(20) null,
+	foreign key(userId) references teaUser(userId) on delete cascade
 );
-select to_char(make_date, 'yyyymmdd'), content from a;
+create sequence teaCommunitySEQ;
+insert into teaCommunity(idx, userId, title, content) values(teaCommunitySEQ.nextval, 'ansalstmd0', '³ìÂ÷ ¸ÀÀÖ³×¿ä.', '³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä. ³ìÂ÷¸ÀÀÖ³×¿ä.');
+select idx, userId, title, content, to_char(regdate, 'yyyy"³â"mm"¿ù"dd"ÀÏ"'), count from teaCommunity;
+select idx, userId, title, content, to_char(regdate, 'yyyymmdd'), count from teaCommunity;
+
+select to_char(make_date, 'yyyy³âmm¿ùddÀÏ'), content from a;
 create table a(
 	make_date timestamp default systimestamp,
 	content CLOB

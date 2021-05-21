@@ -25,6 +25,10 @@ public class DBConn {
 				}
 			}
 			
+			public Connection getConnection() {
+				
+			}
+			
 //			public static void main(String[] args) {
 //				new DBConn();
 //			}
