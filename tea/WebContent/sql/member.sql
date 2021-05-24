@@ -24,7 +24,7 @@ create table teaCommunity(
 	title varchar2(100) not null,
 	content CLOB,
 	regdate timestamp default systimestamp,
-	count varchar(20) null,
+	count varchar(20) default 0,
 	foreign key(userId) references teaUser(userId) on delete cascade
 );
 create sequence teaCommunitySEQ;

@@ -47,7 +47,7 @@
 					<li><a href="#">About TEA</a></li>
 					<li><a href="#">Tea Shop</a></li>
 					<li><a href="#">For the Table</a></li>
-					<li><a href="#">Community</a></li>
+					<li><a href="community.jsp">Community</a></li>
 				</ul>
 			</div>
 			<i class="fas fa-bars"></i>

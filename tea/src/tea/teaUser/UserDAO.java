@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import tea.DBConn;
 
 public class UserDAO {
-	
-	private DBConn conn = null;
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
@@ -17,8 +15,7 @@ public class UserDAO {
 	
 	public UserDAO() {
 		try {
-			conn = new DBConn();
-			con = conn.conn;
+			con = DBConn.getConnection();
 		} catch (Exception e) {
 			System.out.println("DB연결 오류");
 		}
