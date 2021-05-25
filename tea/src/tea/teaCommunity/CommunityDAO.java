@@ -26,8 +26,33 @@ public class CommunityDAO {
 		ArrayList<CommunityDTO> dtos = new ArrayList<CommunityDTO>();
 		
 		try {
-			sql = "select idx, userId, title, content, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, count from teaCommunity";
+			sql = "select idx, userId, title, content, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, count from teaCommunity order by idx desc";
 			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CommunityDTO dto = new CommunityDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setCount(rs.getString("count"));
+				
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("select community error");
+		}
+		return dtos;
+	}
+	
+	public ArrayList<CommunityDTO> selectAllCommunity(String search) {
+		ArrayList<CommunityDTO> dtos = new ArrayList<CommunityDTO>();
+		
+		try {
+			sql = "select idx, userId, title, content, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, count from teaCommunity where title like ?  order by idx desc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+search+"%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				CommunityDTO dto = new CommunityDTO();
@@ -68,17 +93,12 @@ public class CommunityDAO {
 		CommunityDTO dto = new CommunityDTO();
 		
 		try {
-			
-			if(updateCount(idx)) System.out.println("success update count");
-			else System.out.println("fail update count");
-			
 			sql = "select idx, userId, title, content, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, count from teaCommunity where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, idx);
 			rs = pstmt.executeQuery();
 			rs.next();
 			
-			System.out.println(3);
 			dto.setIdx(rs.getString("idx"));
 			dto.setUserId(rs.getString("userId"));
 			dto.setTitle(rs.getString("title"));
@@ -125,11 +145,14 @@ public class CommunityDAO {
 	public boolean updateCommunity(CommunityDTO dto) {
 		boolean check = false;
 		try {
-			sql = "UPDATE teaCommunity SET title = ?, content = ? WHERE idx = ?";
+			sql = "update teaCommunity set title = ?, content = ? where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getTitle());
+			System.out.println(dto.getTitle());
 			pstmt.setString(2, dto.getContent());
+			System.out.println(dto.getContent());
 			pstmt.setString(3, dto.getIdx());
+			System.out.println(dto.getIdx());
 			
 			check = pstmt.executeUpdate() == 1 ? true : false;
 			

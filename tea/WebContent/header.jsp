@@ -24,7 +24,6 @@
 			<div class="menu">
 				<i class="fas fa-plus"></i>
 				<ul class="sub-menu">
-					<li><a href="#">Search</a></li>
 					<%
 						if(user != null){
 					%>

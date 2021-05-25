@@ -18,6 +18,7 @@ create table teaUser(
 --1 : 활성화
 --0 : 비활성화
 
+--------------------------------------
 create table teaCommunity(
 	idx number not null primary key,
 	userId varchar2(10) not null,
@@ -53,3 +54,42 @@ create table board(
 );
 
 create sequence board_seq;
+
+--------------------------------------
+
+idx
+product name
+product price
+product category
+product stock
+product description
+product filename
+
+create table productCategory(
+	idx number not null primary key,
+	category varchar2(10) not null
+);
+create sequence productCategorySEQ;
+
+insert into productCategory values(productCategorySEQ.nextval, '백차');
+insert into productCategory values(productCategorySEQ.nextval, '녹차');
+insert into productCategory values(productCategorySEQ.nextval, '우롱차');
+insert into productCategory values(productCategorySEQ.nextval, '홍차');
+insert into productCategory values(productCategorySEQ.nextval, '보이차');
+
+select * from productCategory order by asc;
+
+create table product(
+	idx number not null primary key,
+	name varchar2(200) not null,
+	price number not null,
+	category number not null,
+	stock number not null,
+	description clob,
+	filename varchar2(100) not null,
+	foreign key(category) references  productCategory(idx) on delete cascade
+);
+
+create sequence productSEQ;
+
+insert into product values(productSEQ.nextval, '운남보이차', 100000, 5, 100, '중국 운남에서 수입해온 보이차', );

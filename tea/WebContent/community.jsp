@@ -9,15 +9,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Community</title>
 <link rel="stylesheet" href="./css/community.css">
-<style>
-	
-</style>
 </head>
 <body>
 	<jsp:include page="./header.jsp" />
 	
 	<div id="main">
 		<div class="inner">
+			<form action="community.jsp" method="get" class="search">
+				<input type="text" name="search" placeholder="검색값을 입력하세요.">
+				<input type="submit" value="검색" class="btn">
+			</form>
 			<table class="community">
 				<thead>
 					<tr>
@@ -31,8 +32,14 @@
 				</thead>
 				<tbody>
 					<%
+						request.setCharacterEncoding("UTF-8");
+						String search = request.getParameter("search");
 						CommunityDAO dao = new CommunityDAO();
-						ArrayList<CommunityDTO> dtos = dao.selectAllCommunity();
+						ArrayList<CommunityDTO> dtos = null;
+						if(search != null)  dtos = dao.selectAllCommunity(search);
+						else dtos = dao.selectAllCommunity();
+						
+						
 						for(CommunityDTO dto : dtos){
 					%>
 						<tr>

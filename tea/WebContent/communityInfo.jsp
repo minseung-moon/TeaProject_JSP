@@ -14,7 +14,9 @@
 	<jsp:include page="./header.jsp" />
 	<%
 		CommunityDAO dao = new CommunityDAO();
-		CommunityDTO dto = dao.selectCommunity(request.getParameter("idx"));
+		String idx = request.getParameter("idx");
+		dao.updateCount(idx);
+		CommunityDTO dto = dao.selectCommunity(idx);
 	%>
 	<div id="main">
 		<div class="inner">

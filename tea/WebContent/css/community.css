@@ -28,6 +28,11 @@
 	z-index: 1;
 }
 
+#main form.search {
+	text-align: right;
+	margin : 5px 0;
+}
+
 #main table.community {
 	width: 100%;
 	margin: 0 auto;

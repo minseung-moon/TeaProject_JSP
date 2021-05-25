@@ -5,10 +5,7 @@
 		let check = false;
 		const title = document.getElementById("title");
 		const content = document.getElementById("content");
-		const userId = document.getElementById("userId");
-		if(userId.value === "" || userId.value === null) {
-			location.href="login.jsp";
-		}
+		
 		if(!/^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅑ가-힣]{1,50}$/.test(title.value)) {
 			alert("제목을 입력해주세요!");
 			title.focus();
