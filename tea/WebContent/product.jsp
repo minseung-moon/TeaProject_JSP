@@ -1,3 +1,7 @@
+<%@page import="teaProduct.teaProductDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="teaProduct.teaProductDAO"%>
+<%@page import="teaProduct.teaProductCategoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -77,25 +81,30 @@
 			</form>
 			
 			<ul class="category-group">
-				<li><a href="#">백차</a></li>
-				<li><a href="#">녹차</a></li>
-				<li><a href="#">우롱차</a></li>
-				<li><a href="#">홍차</a></li>
-				<li><a href="#">흑차</a></li>
+				<%
+					teaProductDAO dao = new teaProductDAO();
+					ArrayList<teaProductCategoryDTO> categories = dao.selectCategory();
+					for(teaProductCategoryDTO dto : categories) {
+				%>
+				<li><a href="product.jsp?category=<%=dto.getIdx()%>"><%=dto.getCategory() %></a></li>
+				<%
+					}
+				%>
 			</ul>
 			
 			<div class="product-group">
+				<%
+					ArrayList<teaProductDTO> products = dao.selectAllProduct();
+					for(teaProductDTO dto : products) {
+				%>
 				<div class="product-card">
-					<img alt="녹차" src="./media/product/하동녹차.jpg">
-					<span>하동녹차</span>
-					<span>13000원</span>
+					<img alt="<%=dto.getOriginalFilename() %>" src="./media/product/<%=dto.getSaveFilename()%>">
+					<span><%=dto.getName() %></span>
+					<span><%=dto.getPrice() %>원</span>
 				</div>
-				
-				<div class="product-card">
-					<img alt="녹차" src="./media/product/다란홍차아쌈.jpg">
-					<span>다란홍차아쌈</span>
-					<span>13000원</span>
-				</div>
+				<%
+					}
+				%>
 			</div>
 			
 			<div class="btn-group">

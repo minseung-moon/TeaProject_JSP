@@ -110,7 +110,7 @@
 	padding: 5px 0;
 }
 
-#main table.write input, table.write textarea {
+#main table.write input, table.write textarea, #main table.write select {
 	width: 100%;
 	font-size: 1.2rem;
 }

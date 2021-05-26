@@ -7,8 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>header</title>
 <link rel="stylesheet" href="./css/Common.css">
-<link rel="shortcut icon" href="./logo&favicon/favicon-32x32.png"
-	type="image/x-icon">
+<link rel="shortcut icon" href="./logo&favicon/favicon-32x32.png" type="image/x-icon">
 <script type="text/javascript" src="./js/Common.js" defer></script>
 <link rel="stylesheet" href="./css/header.css">
 </head>
@@ -32,7 +31,7 @@
 					<%
 							if(user.getUserGrade().equals("r")){
 							%>
-							<li><a href="#">Add Product</a></li>
+							<li><a href="writeProduct.jsp">Add Product</a></li>
 							<%
 							}
 						}else{
@@ -44,7 +43,7 @@
 				</ul>
 				<ul class="main-menu">
 					<li><a href="#">About TEA</a></li>
-					<li><a href="#">Tea Shop</a></li>
+					<li><a href="product.jsp">Tea Shop</a></li>
 					<li><a href="#">For the Table</a></li>
 					<li><a href="community.jsp">Community</a></li>
 				</ul>

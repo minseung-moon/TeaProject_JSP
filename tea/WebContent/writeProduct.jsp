@@ -16,14 +16,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Write Tea</title>
 <link rel="stylesheet" href="./css/community.css">
-<script type="text/javascript" src="./js/writeCommunity.js" defer="defer"></script>
+<script type="text/javascript" src="./js/writeProduct.js" defer="defer"></script>
+<style>
+ #main table.write select {
+	width: 100%;
+	font-size: 1.2rem;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="./header.jsp" />
 	
 	<div id="main">
 		<div class="inner">
-		<form action="writeCommunityProc.jsp" method="post" enctype="multipart/form-data">
+		<form action="writeProductProc.jsp" method="post" enctype="multipart/form-data">
 				<table class="write">
 					<tr>
 						<th> <label for="name">이름</label> </th>
@@ -82,6 +88,7 @@
 			</form>
 		</div>
 	</div>
+	
 	<jsp:include page="./footer.jsp" />
 </body>
 </html>

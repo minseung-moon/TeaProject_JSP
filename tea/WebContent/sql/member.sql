@@ -63,7 +63,8 @@ product price
 product category
 product stock
 product description
-product filename
+product saveFilename
+product originalFilename
 
 create table productCategory(
 	idx number not null primary key,
@@ -86,7 +87,8 @@ create table product(
 	category number not null,
 	stock number not null,
 	description clob,
-	filename varchar2(100) not null,
+	saveFilename varchar2(100) not null,
+	originalFilename varchar2(100) not null,
 	foreign key(category) references  productCategory(idx) on delete cascade
 );
 

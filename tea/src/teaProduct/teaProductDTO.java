@@ -7,7 +7,8 @@ public class teaProductDTO {
 	private String category;
 	private String stock;
 	private String description;
-	private String filename;
+	private String OriginalFilename;
+	private String SaveFilename;
 	public String getIdx() {
 		return idx;
 	}
@@ -44,10 +45,17 @@ public class teaProductDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getFilename() {
-		return filename;
+	public String getOriginalFilename() {
+		return OriginalFilename;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setOriginalFilename(String originalFilename) {
+		OriginalFilename = originalFilename;
 	}
+	public String getSaveFilename() {
+		return SaveFilename;
+	}
+	public void setSaveFilename(String saveFilename) {
+		SaveFilename = saveFilename;
+	}
+	
 }

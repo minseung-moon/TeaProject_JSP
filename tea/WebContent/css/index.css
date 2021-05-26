@@ -26,7 +26,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    animation: blind 2s 2.5s forwards;
+    animation: 2s 2.5s forwards blind;
 }
 #main .inner {
     display: flex;
@@ -238,9 +238,10 @@
 
 @keyframes blind {
 	from {
-		clip-path : polygon(00, 100%0, 100%100%, 0%100%);
+		height: 100%;
 	} to {
-		clip-path : polygon(0 0, 100% 0, 100% 0, 0 0);
+		height: 0%;
+        display: none;
 	}
 }
 

@@ -79,6 +79,7 @@ public class UserDAO {
 			userDTO = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 			String userGrade = "";
 			switch (rs.getString(6)) {
+			case "r" : userGrade = "r"; break;
 			case "s": userGrade = "VIP"; break;
 			case "a": userGrade = "최우수회원"; break;
 			case "b": userGrade = "우수회원"; break;
