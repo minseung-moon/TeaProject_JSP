@@ -95,3 +95,22 @@ create table product(
 create sequence productSEQ;
 
 insert into product values(productSEQ.nextval, '운남보이차', 100000, 5, 100, '중국 운남에서 수입해온 보이차', );
+
+select * from product where name like '%홍%'
+select * from product where category = 5
+--------------------------------------
+
+product idx
+user userId
+order
+
+create table teaOrder(
+	idx number not null,
+	userId varchar2(10) not null,
+	amount number not null,
+	regdate timestamp default systimestamp,
+	foreign key(idx) references product(idx)  on delete cascade,
+	foreign key(userId) references teaUser(userId)  on delete cascade
+);
+
+insert into teaOrder(idx, userId, amount) values()

@@ -116,4 +116,132 @@ public class teaProductDAO {
 		
 		return dto;
 	}
+	
+	public boolean deleteProduct(String idx) {
+		boolean check = false;
+		
+		try {
+			sql = "delete from product where idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, idx);
+			
+			check = pstmt.executeUpdate() == 1 ? true : false;
+		}catch(SQLException e){
+			System.out.println("delete product error");
+		}
+		
+		return check;
+	}
+	
+	public boolean updateProduct(teaProductDTO dto) {
+		boolean check = false;
+		
+		try {
+			sql = "update product set name=?, price=?, category=?, stock=?, description=? where idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getPrice());
+			pstmt.setString(3, dto.getCategory());
+			pstmt.setString(4, dto.getStock());
+			pstmt.setString(5, dto.getDescription());
+			pstmt.setString(6, dto.getIdx());
+			
+			check = pstmt.executeUpdate() == 1 ? true : false;
+		}catch(SQLException e){
+			System.out.println("update product error");
+		}
+		
+		return check;
+	}
+	
+	public boolean insertOrder(teaOrderDTO dto) {
+		boolean check = false;
+		
+		try {
+			sql = "insert into teaOrder(idx, userId, amount) values(?, ?, ?)";
+			pstmt = con.prepareStatement(sql);	
+			pstmt.setString(1, dto.getIdx());
+			pstmt.setString(2, dto.getUserId());
+			pstmt.setString(3, dto.getAmount());
+			
+			check = pstmt.executeUpdate() == 1 ? updateStock(dto.getIdx(), dto.getAmount()) : false;
+		}catch(SQLException e){
+			System.out.println("insert order error");
+		}
+		
+		return check;
+	} 
+	
+	public boolean updateStock(String idx, String stock) {
+		boolean check = false;
+		
+		try {
+			sql = "update product set stock=stock-? where idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, stock);
+			pstmt.setString(2, idx);
+			
+			check = pstmt.executeUpdate() == 1 ? true : false;
+		}catch(SQLException e){
+			System.out.println("update product stock error");
+		}
+		
+		return check;
+	}
+	
+	public ArrayList<teaProductDTO> selectSearchProduct(String search) {
+		ArrayList<teaProductDTO> dtos = new ArrayList<teaProductDTO>();
+		
+		try {
+			sql = "select * from product where name like ? order by idx asc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+search+"%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				teaProductDTO dto = new teaProductDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setPrice(rs.getString("price"));
+				dto.setCategory(rs.getString("category"));
+				dto.setStock(rs.getString("stock"));
+				dto.setDescription(rs.getString("description"));
+				dto.setSaveFilename(rs.getString("saveFilename"));
+				dto.setOriginalFilename(rs.getString("originalFilename"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect search product error");
+		}
+		
+		return dtos;
+	}
+	
+	public ArrayList<teaProductDTO> selectCategoryProduct(String category) {
+		ArrayList<teaProductDTO> dtos = new ArrayList<teaProductDTO>();
+		
+		try {
+			sql = "select * from product where category = ? order by idx asc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				teaProductDTO dto = new teaProductDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setPrice(rs.getString("price"));
+				dto.setCategory(rs.getString("category"));
+				dto.setStock(rs.getString("stock"));
+				dto.setDescription(rs.getString("description"));
+				dto.setSaveFilename(rs.getString("saveFilename"));
+				dto.setOriginalFilename(rs.getString("originalFilename"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect category product error");
+		}
+		
+		return dtos;
+	}
 }

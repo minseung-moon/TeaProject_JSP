@@ -9,73 +9,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Community</title>
-<style>
-	#main {
-		min-height: 100vh;
-		display: flex;
-		justify-content : center;
-		align-items : center;
-	}
-	#main .inner {
-		display: flex;
-		flex-direction : column;
-		justify-content : center;
-		align-items : center;
-	}
-	#main .search {
-		width : 100%;
-		text-align: right;
-	}
-	#main .search .btn {
-		font-size: 1rem;
-		padding : 0;
-	}
-	#main .category-group {
-		width : 100%;
-		display: flex;
-		justify-content : space-around;
-		align-items : center;
-		padding : 10px 0;
-	}
-	#main .category-group a {
-		display : inline-block;
-		padding : 10px 0;
-	}
-	#main .category-group a:hover {
-		text-decoration: underline;
-	}
-	#main .product-group {
-		display: flex;
-		justify-content : center;
-		align-items : center;
-	}
-	#main .product-group .product-card {
-		width: 150px;
-		padding : 5px 0;
-		overflow: hidden;
-		cursor: pointer;
-		font-size: 1.3rem;
-		display: flex;
-		flex-direction : column;
-		justify-content : center;
-		align-items : center;
-	}
-	#main .product-group .product-card img {
-		width: 100%;
-	}
-	#main .btn-group {
-		width : 100%;
-		text-align: right;
-		margin : 15px 0;
-	}
-</style>
+<link rel="stylesheet" href="./css/product.css">
 </head>
 <body>
 	<jsp:include page="./header.jsp" />
 	
 	<div id="main">
 		<div class="inner">
-			<form action="community.jsp" method="get" class="search">
+			<form action="product.jsp" method="get" class="search">
 				<input type="text" name="search" placeholder="검색값을 입력하세요.">
 				<input type="submit" value="검색" class="btn">
 			</form>
@@ -94,13 +35,21 @@
 			
 			<div class="product-group">
 				<%
-					ArrayList<teaProductDTO> products = dao.selectAllProduct();
+					request.setCharacterEncoding("UTF-8");
+					String search = request.getParameter("search");
+					String category = request.getParameter("category");
+					ArrayList<teaProductDTO> products = null;
+					if(search != null) products = dao.selectSearchProduct(search);
+					else if (category != null)  products = dao.selectCategoryProduct(category);
+					else  products = dao.selectAllProduct();
 					for(teaProductDTO dto : products) {
 				%>
 				<div class="product-card">
-					<img alt="<%=dto.getOriginalFilename() %>" src="./media/product/<%=dto.getSaveFilename()%>">
-					<span><%=dto.getName() %></span>
-					<span><%=dto.getPrice() %>원</span>
+					<a href="productInfo.jsp?idx=<%=dto.getIdx() %>">
+						<img alt="<%=dto.getOriginalFilename() %>" src="./media/product/<%=dto.getSaveFilename()%>">
+						<span><%=dto.getName() %></span>
+						<span><%=dto.getPrice() %>원</span>
+					</a>
 				</div>
 				<%
 					}

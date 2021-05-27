@@ -1,3 +1,5 @@
+<%@page import="tea.teaUser.UserDTO"%>
+<%@page import="tea.teaUser.UserDAO"%>
 <%@page import="teaProduct.teaProductDTO"%>
 <%@page import="teaProduct.teaProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,48 +9,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Product</title>
-<style>
-	#main {
-		min-height: 100vh;
-		display: flex;
-		justify-content : center;
-		align-items : center;
-	}
-	#main table.product {
-            border-collapse: collapse;
-            margin : 0 auto;
-        }
-    #main table.product th,
-    #main table.product td {
-            width: 50px;
-            height: 50px;
-        }
-    #main table.product,
-    #main table.product th,
-    #main table.product td {
-            border: 1px solid #000;
-        }
-    #main table.product tr td img {
-        width: 300px;
-     }
-</style>
+<link rel="stylesheet" href="./css/productInfo.css">
+<script type="text/javascript" src="./js/orderValidate.js" defer="defer"></script>
 </head>
 <body>
 	<jsp:include page="./header.jsp" />
-	<%--
+	<%
 		String idx = request.getParameter("idx");
 		teaProductDAO dao = new teaProductDAO();
 		teaProductDTO dto = dao.selectProduct(idx);
-	--%>
-	<%
-	teaProductDAO dao = new teaProductDAO();
-	teaProductDTO dto = dao.selectProduct("1");
+		UserDTO user = (UserDTO) session.getAttribute("user"); 
 	%>
 	<div id="main">
 		<div class="inner">
 			<table class="product">
 				<tr>
-					<td rowspan="5">
+					<td rowspan="5" class="img-space">
 						<img alt="<%=dto.getOriginalFilename() %>" src="./media/product/<%=dto.getSaveFilename()%>">
 					</td>
 					<th> 제품명 </th>
@@ -67,29 +43,38 @@
 				<tr>
 					
 					<th> 재고 수 </th>
-					<td><%=dto.getStock() %></td>
+					<td id="stock"><%=dto.getStock() %></td>
 				</tr>
-				<tr>
-					
+				<tr class="order-form">
 					<td colspan="2">
-						<button type="button" class="btn" onclick="javascript:history.back()'">주문하기</button>
-						<button type="button" class="btn" onclick="javascript:history.back()'">뒤로가기</button>
+						<form action="orderProc.jsp" method="post">
+						<input type="hidden" name="idx" id="idx" value="<%=dto.getIdx()%>">
+							<input type="hidden" name="userId" id="userId" value="<%=user!=null?user.getUserId():""%>">
+							<input type="text" name="amount" id="amount" placeholder="주문 수량을 입력해주세요!">
+							<input type="submit" id="submit" value="주문하기" class="btn">
+						</form>
 					</td>
 				</tr>
+				<%
+					if(user!=null && user.getUserGrade().equals("r")){
+				%>
+				<tr>
+					<td colspan="3" class="btn-group">
+						<a href="updateProduct.jsp?idx=<%=dto.getIdx()%>" class="btn btn-flip">수정하기</a>
+						<a href="deleteProduct.jsp?idx=<%=dto.getIdx()%>" class="btn  btn-flip" onclick="return confirm('정말 삭제하시겠습니까?')?true:false">삭제하기</a>	
+					</td>
+				</tr>
+				<%
+					}
+				%>
 				<tr>
 					<td colspan="3">
 						<%=dto.getDescription() %>	
 					</td>
 				</tr>
 			</table>
-			<div class="btn-group">
-	<button type="button" class="btn" onclick="javascript:history.back()'">주문하기</button>
-						<button type="button" class="btn" onclick="javascript:history.back()'">뒤로가기</button>
-	</div>
 		</div>
 	</div>
-	
-	
 	
 	<jsp:include page="./footer.jsp" />
 </body>
