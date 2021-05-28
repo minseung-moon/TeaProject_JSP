@@ -1,6 +1,6 @@
-package teaProduct;
+package tableProduct;
 
-public class teaOrderDTO {
+public class TableOrderDTO {
 	private String idx;
 	private String name;
 	private String userId;

@@ -1,7 +1,6 @@
-<%@page import="teaProduct.teaProductDTO"%>
-<%@page import="teaProduct.teaProductCategoryDTO"%>
+<%@page import="tableProduct.TableProductCategoryDTO"%>
+<%@page import="tableProduct.TableProductDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="teaProduct.teaProductDAO"%>
 <%@page import="tea.teaUser.UserDTO"%>
 <%
 	UserDTO user = (UserDTO)session.getAttribute("user");
@@ -17,7 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Write Tea</title>
 <link rel="stylesheet" href="./css/community.css">
-<script src="./js/updateProduct.js" defer="defer"></script>
+<script type="text/javascript" src="./js/writeProduct.js" defer="defer"></script>
 <style>
  #main table.write select {
 	width: 100%;
@@ -27,26 +26,21 @@
 </head>
 <body>
 	<jsp:include page="./header.jsp" />
-	<%
-		teaProductDAO dao = new teaProductDAO();
-		String idx = request.getParameter("idx");
-		teaProductDTO product = dao.selectProduct(idx);
-	%>
+	
 	<div id="main">
 		<div class="inner">
-		<form action="updateProductProc.jsp" method="post">
-				<input type="hidden" name="idx" value="<%=product.getIdx()%>">
+		<form action="writeTableProductProc.jsp" method="post" enctype="multipart/form-data">
 				<table class="write">
 					<tr>
 						<th> <label for="name">이름</label> </th>
 						<td>
-							<input type="text" name="name" id="name" placeholder="제품명을 입력해주세요" value="<%=product.getName() %>">
+							<input type="text" name="name" id="name" placeholder="제품명을 입력해주세요">
 						</td>
 					</tr>
 					<tr>
 						<th> <label for="price">가격</label> </th>
 						<td>
-							<input type="text" name="price" id="price" placeholder="가격을 입력해주세요" value="<%=product.getPrice() %>">
+							<input type="text" name="price" id="price" placeholder="가격을 입력해주세요">
 						</td>
 					</tr>
 					<tr>
@@ -55,10 +49,11 @@
 							<select name="category" id="category">
 								<option>카테고리</option>
 								<%
-									ArrayList<teaProductCategoryDTO> dtos = dao.selectCategory();
-									for(teaProductCategoryDTO dto : dtos) {
+									TableProductDAO dao = new TableProductDAO();
+									ArrayList<TableProductCategoryDTO> dtos = dao.selectTableCategory();
+									for(TableProductCategoryDTO dto : dtos) {
 								%>
-								<option value="<%=dto.getIdx()%>" <%=product.getCategory().equals(dto.getCategory())?"selected":"" %>><%=dto.getCategory() %></option>	
+								<option value="<%=dto.getIdx()%>"><%=dto.getCategory() %></option>	
 								<%
 									}
 								%>
@@ -68,18 +63,24 @@
 					<tr>
 						<th> <label for="stock">재고수</label> </th>
 						<td>
-							<input type="text" name="stock" id="stock" placeholder="재고 수를 입력해주세요" value="<%=product.getStock()%>">
+							<input type="text" name="stock" id="stock" placeholder="재고 수를 입력해주세요">
 						</td>
 					</tr>
 					<tr>
 						<th> <label for="description">설명</label> </th>
 						<td>
-							<textarea rows="10" cols="30" name="description" id="description" placeholder="설명을 입력하세요."><%=product.getDescription() %></textarea>
+							<textarea rows="10" cols="30" name="description" id="description" placeholder="설명을 입력하세요."></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th> <label for="filename">제품이미지</label> </th>
+						<td>
+							<input type="file" name="filename" id="filename">
 						</td>
 					</tr>
 					<tr class="btn-group">
 						<td colspan="2">
-							<button type="submit" id="submit" class="btn">업데이트</button>
+							<button type="submit" id="submit" class="btn" onclick="return checkUpload()">업로드</button>
 							<button type="button" class="btn" onclick="javscript:history.back()">뒤로가기</button>
 						<td>
 					</tr>

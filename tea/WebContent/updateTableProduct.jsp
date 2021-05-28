@@ -1,7 +1,7 @@
-<%@page import="teaProduct.teaProductDTO"%>
-<%@page import="teaProduct.teaProductCategoryDTO"%>
+<%@page import="tableProduct.TableProductCategoryDTO"%>
+<%@page import="tableProduct.TableProductDTO"%>
+<%@page import="tableProduct.TableProductDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="teaProduct.teaProductDAO"%>
 <%@page import="tea.teaUser.UserDTO"%>
 <%
 	UserDTO user = (UserDTO)session.getAttribute("user");
@@ -17,7 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Write Tea</title>
 <link rel="stylesheet" href="./css/community.css">
-<script src="./js/updateProduct.js" defer="defer"></script>
+<script type="text/javascript" src="./js/updateProduct.js" defer="defer"></script>
 <style>
  #main table.write select {
 	width: 100%;
@@ -28,13 +28,13 @@
 <body>
 	<jsp:include page="./header.jsp" />
 	<%
-		teaProductDAO dao = new teaProductDAO();
+		TableProductDAO dao = new TableProductDAO();
 		String idx = request.getParameter("idx");
-		teaProductDTO product = dao.selectProduct(idx);
+		TableProductDTO product = dao.selectTableProduct(idx); 
 	%>
 	<div id="main">
 		<div class="inner">
-		<form action="updateProductProc.jsp" method="post">
+		<form action="updateTableProductProc.jsp" method="post">
 				<input type="hidden" name="idx" value="<%=product.getIdx()%>">
 				<table class="write">
 					<tr>
@@ -55,8 +55,8 @@
 							<select name="category" id="category">
 								<option>카테고리</option>
 								<%
-									ArrayList<teaProductCategoryDTO> dtos = dao.selectCategory();
-									for(teaProductCategoryDTO dto : dtos) {
+									ArrayList<TableProductCategoryDTO> dtos = dao.selectTableCategory();
+									for(TableProductCategoryDTO dto : dtos) {
 								%>
 								<option value="<%=dto.getIdx()%>" <%=product.getCategory().equals(dto.getCategory())?"selected":"" %>><%=dto.getCategory() %></option>	
 								<%

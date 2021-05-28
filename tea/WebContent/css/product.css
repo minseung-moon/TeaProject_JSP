@@ -4,6 +4,7 @@
 		display: flex;
 		justify-content : center;
 		align-items : center;
+		background-color: #faf1e6;
 	}
 	#main .inner {
 		display: flex;

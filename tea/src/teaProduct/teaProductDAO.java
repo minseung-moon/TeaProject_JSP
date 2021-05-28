@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import tableProduct.TableOrderDTO;
 import tea.DBConn;
 
 public class teaProductDAO {
@@ -236,6 +237,108 @@ public class teaProductDAO {
 				dto.setDescription(rs.getString("description"));
 				dto.setSaveFilename(rs.getString("saveFilename"));
 				dto.setOriginalFilename(rs.getString("originalFilename"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect category product error");
+		}
+		
+		return dtos;
+	}
+	
+	public ArrayList<teaOrderDTO> selectAllProductOrder() {
+		ArrayList<teaOrderDTO> dtos = new ArrayList<teaOrderDTO>();
+		
+		try {
+			sql = "select p.idx, p.name, o.userId, o.amount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, to_char(regdate + 7, 'yyyy\"년\"mm\"월\"dd\"일\"') as enddate from teaOrder o inner join product p on p.idx = o.idx order by regdate asc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				teaOrderDTO dto = new teaOrderDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setAmount(rs.getString("amount"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setEnddate(rs.getString("enddate"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect category product error");
+		}
+		
+		return dtos;
+	}
+	
+	public ArrayList<teaOrderDTO> selectProductOrder(String userId) {
+		ArrayList<teaOrderDTO> dtos = new ArrayList<teaOrderDTO>();
+		
+		try {
+			sql = "select p.idx, p.name, o.userId, o.amount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, to_char(regdate + 7, 'yyyy\"년\"mm\"월\"dd\"일\"') as enddate from teaOrder o inner join product p on p.idx = o.idx where userId = ? order by regdate asc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				teaOrderDTO dto = new teaOrderDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setAmount(rs.getString("amount"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setEnddate(rs.getString("enddate"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect category product error");
+		}
+		
+		return dtos;
+	}
+	
+	public ArrayList<TableOrderDTO> selectAllTableProductOrder() {
+		ArrayList<TableOrderDTO> dtos = new ArrayList<TableOrderDTO>();
+		
+		try {
+			sql = "select p.idx, p.name, o.userId, o.amount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, to_char(regdate + 7, 'yyyy\"년\"mm\"월\"dd\"일\"') as enddate from tableOrder o inner join tableProduct p on p.idx = o.idx order by regdate asc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TableOrderDTO dto = new TableOrderDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setAmount(rs.getString("amount"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setEnddate(rs.getString("enddate"));
+				dtos.add(dto);
+			}
+		}catch(SQLException e){
+			System.out.println("slect category product error");
+		}
+		
+		return dtos;
+	}
+	
+	public ArrayList<TableOrderDTO> selectTableProductOrder(String userId) {
+		ArrayList<TableOrderDTO> dtos = new ArrayList<TableOrderDTO>();
+		
+		try {
+			sql = "select p.idx, p.name, o.userId, o.amount, to_char(regdate, 'yyyy\"년\"mm\"월\"dd\"일\"') as regdate, to_char(regdate + 7, 'yyyy\"년\"mm\"월\"dd\"일\"') as enddate from tableOrder o inner join tableProduct p on p.idx = o.idx where userId = ? order by regdate asc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TableOrderDTO dto = new TableOrderDTO();
+				dto.setIdx(rs.getString("idx"));
+				dto.setName(rs.getString("name"));
+				dto.setUserId(rs.getString("userId"));
+				dto.setAmount(rs.getString("amount"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setEnddate(rs.getString("enddate"));
 				dtos.add(dto);
 			}
 		}catch(SQLException e){

@@ -1,8 +1,9 @@
 <%@page import="tea.teaUser.UserDTO"%>
-<%@page import="teaProduct.teaProductDTO"%>
+<%@page import="tea.teaUser.UserDAO"%>
+<%@page import="tableProduct.TableProductDTO"%>
+<%@page import="tableProduct.TableProductCategoryDTO"%>
+<%@page import="tableProduct.TableProductDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="teaProduct.teaProductDAO"%>
-<%@page import="teaProduct.teaProductCategoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,18 +18,18 @@
 	
 	<div id="main">
 		<div class="inner">
-			<form action="product.jsp" method="get" class="search">
+			<form action="tableProduct.jsp" method="get" class="search">
 				<input type="text" name="search" placeholder="검색값을 입력하세요.">
 				<input type="submit" value="검색" class="btn">
 			</form>
 			
 			<ul class="category-group">
 				<%
-					teaProductDAO dao = new teaProductDAO();
-					ArrayList<teaProductCategoryDTO> categories = dao.selectCategory();
-					for(teaProductCategoryDTO dto : categories) {
+					TableProductDAO dao = new TableProductDAO();
+					ArrayList<TableProductCategoryDTO> categories = dao.selectTableCategory();
+					for(TableProductCategoryDTO dto : categories) {
 				%>
-				<li><a href="product.jsp?category=<%=dto.getIdx()%>"><%=dto.getCategory() %></a></li>
+				<li><a href="tableProduct.jsp?category=<%=dto.getIdx()%>"><%=dto.getCategory() %></a></li>
 				<%
 					}
 				%>
@@ -39,15 +40,15 @@
 					request.setCharacterEncoding("UTF-8");
 					String search = request.getParameter("search");
 					String category = request.getParameter("category");
-					ArrayList<teaProductDTO> products = null;
-					if(search != null) products = dao.selectSearchProduct(search);
+					ArrayList<TableProductDTO> products = null;
+					if(search != null) products = dao.selectSearchTableProduct(search);
 					else if (category != null)  products = dao.selectCategoryProduct(category);
-					else  products = dao.selectAllProduct();
-					for(teaProductDTO dto : products) {
+					else  products = dao.selectAllTableProduct();
+					for(TableProductDTO dto : products) {
 				%>
 				<div class="product-card">
-					<a href="productInfo.jsp?idx=<%=dto.getIdx() %>">
-						<img alt="<%=dto.getOriginalFilename() %>" src="./media/product/<%=dto.getSaveFilename()%>">
+					<a href="tableProductInfo.jsp?idx=<%=dto.getIdx() %>">
+						<img alt="<%=dto.getOriginalFilename() %>" src="./media/tableProduct/<%=dto.getSaveFilename()%>">
 						<span><%=dto.getName() %></span>
 						<span><%=dto.getPrice() %>원</span>
 					</a>
@@ -62,12 +63,12 @@
 				if(user != null && user.getUserGrade().equals("r")){
 			%>
 			<div class="btn-group">
-				<button type="button" class="btn" onclick="javascript:location.href='writeProduct.jsp'">글쓰기</button>
+				<a class="btn" href="writeTableProduct.jsp">글쓰기</a>
 			</div>
 			<%
 				}
 			%>
-
+			
 		</div>
 	</div>
 	

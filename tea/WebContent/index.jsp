@@ -22,22 +22,22 @@
 		</section>
 		<section class="about-tea">
 			<div class="inner">
-				<a href="#">
+				<a href="product.jsp?category=2">
 					<div class="card">
 						<img src="./media/greentea.jpg" alt="greentea">
 						<p>Green Tea(녹차)</p>
 					</div>
-				</a> <a href="#">
+				</a> <a href="product.jsp?category=3">
 					<div class="card">
 						<img src="./media/bluetea.jpg" alt="bluetea">
 						<p>Blue Tea(우롱차)</p>
 					</div>
-				</a> <a href="#">
+				</a> <a href="product.jsp?category=4">
 					<div class="card">
 						<img src="./media/blacktea.jpg" alt="blacktea">
 						<p>Black Tea(홍차)</p>
 					</div>
-				</a> <a href="#">
+				</a> <a href="product.jsp?category=5">
 					<div class="card">
 						<img src="./media/darktea.jpg" alt="darktea">
 						<p>Dark Tea(보이차)</p>
@@ -47,11 +47,18 @@
 		</section>
 		<section class="for-the-table">
 			<div class="inner">
-				<a href="#"><span class="mark">TEA CUP</span><img
-					src="./media/teacup.png" alt="teacup"></a> <a href="#"><span
-					class="mark">TEA POT</span><img src="./media/teapot.png"
-					alt="teapot"></a> <a href="#"><span class="mark">COOKIE</span><img
-					src="./media/cookie.png" alt="cookie"></a>
+				<a href="tableProduct.jsp?category=2">
+					<span class="mark">TEA CUP</span>
+					<img src="./media/teacup.png" alt="teacup">
+				</a>
+				<a href="tableProduct.jsp?category=3">
+					<span class="mark">TEA POT</span>
+					<img src="./media/teapot.png" alt="teapot">
+				</a>
+				<a href="tableProduct.jsp?category=1">
+					<span class="mark">COOKIE</span>
+					<img src="./media/cookie.png" alt="cookie">
+				</a>
 			</div>
 		</section>
 		<section class="brand-shop">

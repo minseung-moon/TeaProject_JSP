@@ -1,5 +1,5 @@
-<%@page import="teaProduct.teaProductDAO"%>
-<%@page import="teaProduct.teaProductDTO"%>
+<%@page import="tableProduct.TableProductDAO"%>
+<%@page import="tableProduct.TableProductDTO"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	
@@ -10,7 +10,7 @@
 	String stock = request.getParameter("stock");
 	String description = request.getParameter("description");
 	
-	teaProductDTO dto = new teaProductDTO();
+	TableProductDTO dto = new TableProductDTO();
 	dto.setName(name);
 	dto.setPrice(price);
 	dto.setCategory(category);
@@ -18,8 +18,8 @@
 	dto.setDescription(description);
 	dto.setIdx(idx);
 	
-	teaProductDAO dao = new teaProductDAO();
+	TableProductDAO dao = new TableProductDAO();
 	
-	if(dao.updateProduct(dto)) response.sendRedirect("productInfo.jsp?idx="+dto.getIdx());
+	if(dao.updateTableProduct(dto)) response.sendRedirect("tableProductInfo.jsp?idx="+dto.getIdx());
 	else response.sendRedirect(request.getHeader("referer"));
 %>

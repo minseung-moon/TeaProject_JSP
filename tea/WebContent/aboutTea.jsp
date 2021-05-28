@@ -15,7 +15,8 @@
 	<jsp:include page="./header.jsp" />
 	
 	<div id="main">
-	
+	https://www.python2.net/questions-808556.htm
+	https://nykim.work/56
 	</div>
 	
 	<jsp:include page="./footer.jsp" />

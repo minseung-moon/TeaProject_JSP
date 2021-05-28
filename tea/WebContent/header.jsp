@@ -44,7 +44,7 @@
 				<ul class="main-menu">
 					<li><a href="#">About TEA</a></li>
 					<li><a href="product.jsp">Tea Shop</a></li>
-					<li><a href="#">For the Table</a></li>
+					<li><a href="tableProduct.jsp">For the Table</a></li>
 					<li><a href="community.jsp">Community</a></li>
 				</ul>
 			</div>

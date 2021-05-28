@@ -1,14 +1,12 @@
-<%@page import="teaProduct.teaProductDAO"%>
-<%@page import="teaProduct.teaProductDTO"%>
+<%@page import="tableProduct.TableProductDAO"%>
+<%@page import="tableProduct.TableProductDTO"%>
 <%@page import="java.util.Enumeration"%>
 <%@ page import="com.oreilly.servlet.*" %>
 <%@ page import="com.oreilly.servlet.multipart.*" %>
-<%@page import="tea.teaCommunity.CommunityDAO"%>
-<%@page import="tea.teaCommunity.CommunityDTO"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	String filePath = "C:\\Users\\YJ\\git\\TeaProject_JSP\\tea\\WebContent\\media\\product";
+	String filePath = "C:\\Users\\YJ\\git\\TeaProject_JSP\\tea\\WebContent\\media\\tableProduct";
 	int size = 5*1024*1024;
 	String charSet = "UTF-8";
 	
@@ -25,7 +23,7 @@
 	String saveFilename = multi.getFilesystemName(filename);
 	String originalFilename = multi.getOriginalFileName(filename);
 	
-	teaProductDTO dto = new teaProductDTO();
+	TableProductDTO dto = new TableProductDTO();
 	dto.setName(name);
 	dto.setPrice(price);
 	dto.setCategory(category);
@@ -34,8 +32,8 @@
 	dto.setSaveFilename(saveFilename);
 	dto.setOriginalFilename(originalFilename);
 	
-	teaProductDAO dao = new teaProductDAO();
+	TableProductDAO dao = new TableProductDAO();
 	
-	if(dao.insertProduct(dto)) response.sendRedirect("product.jsp");
+	if(dao.insertTableProduct(dto)) response.sendRedirect("tableProduct.jsp");
 	else response.sendRedirect(request.getHeader("referer"));
 %>

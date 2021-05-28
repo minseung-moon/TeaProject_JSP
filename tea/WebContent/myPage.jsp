@@ -1,3 +1,7 @@
+<%@page import="tableProduct.TableOrderDTO"%>
+<%@page import="teaProduct.teaOrderDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="teaProduct.teaProductDAO"%>
 <%@page import="tea.teaUser.UserDTO"%>
 <%@page import="tea.teaUser.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,7 +21,7 @@
 
 	<div id="main">
 		<div class="container">
-			<table>
+			<table class="my-info">
 				<tr>
 					<th>성함 : </th>
 					<td><%=user.getUserName() %></td>
@@ -44,6 +48,81 @@
 						<button class="btn btn-flip" onclick="javascript:confirm('정말 탈퇴하시겠습니까?(데이터 전부 삭제 됩니다!')?location.href='deleteUser.jsp?userId=<%=user.getUserId()%>':alert('취소하셨습니다!')">탈퇴</button>
 					</td>
 				</tr>
+			</table>
+		</div>
+		
+		<div class="container">
+			<table class="teaOrder">
+				<thead>
+					<tr>
+						<th>물건번호</th>
+						<th>물건명</th>
+						<th>주문자</th>
+						<th>주문수량</th>
+						<th>주문일자</th>
+						<th>예상도착일자</th>
+						<th>비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						teaProductDAO dao = new teaProductDAO();
+						ArrayList<teaOrderDTO> teadtos = null;
+						if(user.getUserGrade().equals("r")) teadtos = dao.selectAllProductOrder();
+						else teadtos = dao.selectProductOrder(user.getUserId());
+						for(teaOrderDTO dto : teadtos) {
+					%>
+					<tr>
+						<td><%=dto.getIdx() %></td>
+						<td><%=dto.getName() %></td>
+						<td><%=dto.getUserId() %></td>
+						<td><%=dto.getAmount() %></td>
+						<td><%=dto.getRegdate() %></td>
+						<td><%=dto.getEnddate() %></td>
+						<td>비고</td>
+					</tr>
+					<%
+						}
+					%>
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="container">
+			<table class="teaOrder">
+				<thead>
+					<tr>
+						<th>물건번호</th>
+						<th>물건명</th>
+						<th>주문자</th>
+						<th>주문수량</th>
+						<th>주문일자</th>
+						<th>예상도착일자</th>
+						<th>비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						ArrayList<TableOrderDTO> tabledtos = null;
+						if(user.getUserGrade().equals("r")) tabledtos = dao.selectAllTableProductOrder();
+						else tabledtos = dao.selectTableProductOrder(user.getUserId());
+						for(TableOrderDTO dto : tabledtos) {
+					%>
+					<tr>
+						<td><%=dto.getIdx() %></td>
+						<td><%=dto.getName() %></td>
+						<td><%=dto.getUserId() %></td>
+						<td><%=dto.getAmount() %></td>
+						<td><%=dto.getRegdate() %></td>
+						<td><%=dto.getEnddate() %></td>
+						<td>비고</td>
+					</tr>
+					<%
+						}
+					%>
+					
+				</tbody>
 			</table>
 		</div>
 	</div>
