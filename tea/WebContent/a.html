@@ -1,16 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>About TEA</title>
-<style>
-	#main {
-		min-height: 100vh;
-		margin-top: 200px;
-	}
-	.inner {
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .inner {
             margin: 20px;
         }
         .list {
@@ -35,17 +31,10 @@
             max-width: 500px;
             width: 100%;
         }
-	/*https://blueshw.github.io/2019/10/13/show-items-on-scroll/*/
-	/*https://www.python2.net/questions-808556.html*/
-	/*https://nykim.work/56*/
-</style>
+    </style>
 </head>
-
 <body>
-	<jsp:include page="./header.jsp" />
-	
-	<div id="main">
-		<div class="inner">
+    <div class="inner">
         <div class="list">
             <div class="img-wrap">
                 <img src="./tea/green1.jpg" alt="녹차" class="image up-on-scroll" />
@@ -121,12 +110,9 @@
             육보차(六堡茶), 복전차(茯磚茶), 천량차(千兩茶), 운남보이차(雲南普洱茶)가 유명하다. 오래될수록 부드럽고 순해져 늦은 밤이나 몸이 허약한 사람들과 어린아이들까지도 편하게 마실 수 있다.
           </article>
         </div>
-      </div>	
-	</div>
-	
-	<jsp:include page="./footer.jsp" />
-	
-	<script>
+      </div>
+
+      <script>
             function isElementUnderBottom(elem, triggerDiff) {
                 const { top } = elem.getBoundingClientRect();
                 const { innerHeight } = window;
